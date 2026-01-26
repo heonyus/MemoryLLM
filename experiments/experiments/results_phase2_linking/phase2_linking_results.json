@@ -1,0 +1,180 @@
+{
+  "experiment": "Phase 2 (B-3): Explicit Linking Effect",
+  "timestamp": "2026-01-22T12:26:45.972139",
+  "method": {
+    "description": "Write-time Linking + Read-time Link Expansion",
+    "encoder": "sentence-transformers/all-MiniLM-L6-v2",
+    "conditions": [
+      "Baseline",
+      "Link-1",
+      "Link-3",
+      "Link-5"
+    ]
+  },
+  "config": {
+    "num_samples": 30,
+    "num_distractors": 500,
+    "top_k": 5,
+    "gap_sizes": [
+      0,
+      10,
+      30
+    ],
+    "seed": 42,
+    "quick_mode": true
+  },
+  "results": {
+    "Baseline": {
+      "0": {
+        "co_retrieval_rate": 0.9,
+        "single_rate": 0.1,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 27,
+          "single": 3,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      },
+      "10": {
+        "co_retrieval_rate": 0.8666666666666667,
+        "single_rate": 0.13333333333333333,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 26,
+          "single": 4,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      },
+      "30": {
+        "co_retrieval_rate": 0.9,
+        "single_rate": 0.1,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 27,
+          "single": 3,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      }
+    },
+    "Link-1": {
+      "0": {
+        "co_retrieval_rate": 0.9666666666666667,
+        "single_rate": 0.03333333333333333,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 29,
+          "single": 1,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 0.9787037037037035
+      },
+      "10": {
+        "co_retrieval_rate": 0.9666666666666667,
+        "single_rate": 0.03333333333333333,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 29,
+          "single": 1,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 0.9747967479674798
+      },
+      "30": {
+        "co_retrieval_rate": 0.9333333333333333,
+        "single_rate": 0.06666666666666667,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 28,
+          "single": 2,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 0.9807189542483662
+      }
+    },
+    "Link-3": {
+      "0": {
+        "co_retrieval_rate": 1.0,
+        "single_rate": 0.0,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 30,
+          "single": 0,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 2.8500000000000005
+      },
+      "10": {
+        "co_retrieval_rate": 1.0,
+        "single_rate": 0.0,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 30,
+          "single": 0,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 2.868292682926829
+      },
+      "30": {
+        "co_retrieval_rate": 0.9666666666666667,
+        "single_rate": 0.03333333333333333,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 29,
+          "single": 1,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 2.8964052287581694
+      }
+    },
+    "Link-5": {
+      "0": {
+        "co_retrieval_rate": 1.0,
+        "single_rate": 0.0,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 30,
+          "single": 0,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 4.63425925925926
+      },
+      "10": {
+        "co_retrieval_rate": 1.0,
+        "single_rate": 0.0,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 30,
+          "single": 0,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 4.673170731707318
+      },
+      "30": {
+        "co_retrieval_rate": 0.9666666666666667,
+        "single_rate": 0.03333333333333333,
+        "none_rate": 0.0,
+        "counts": {
+          "co": 29,
+          "single": 1,
+          "none": 0,
+          "total": 30
+        },
+        "avg_link_rate": 4.746732026143791
+      }
+    }
+  }
+}

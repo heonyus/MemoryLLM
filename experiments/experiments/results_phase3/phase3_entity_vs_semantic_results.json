@@ -1,0 +1,227 @@
+{
+  "experiment": "Phase 3 (B-5): Entity vs Semantic Linking Strategies",
+  "timestamp": "2026-01-22T19:24:02.256075",
+  "strategies": [
+    "Baseline",
+    "Semantic",
+    "Entity",
+    "Hybrid-OR",
+    "Hybrid-AND"
+  ],
+  "config": {
+    "encoder": "mplus",
+    "num_samples": 30,
+    "num_distractors": 500,
+    "top_k": 5,
+    "link_k": 3,
+    "gap_sizes": [
+      0,
+      50,
+      200
+    ],
+    "seed": 42,
+    "quick_mode": true,
+    "phase2_loaded": true
+  },
+  "results": {
+    "Baseline": {
+      "0": {
+        "co_retrieval_rate": 0.43333333333333335,
+        "single_rate": 0.36666666666666664,
+        "none_rate": 0.2,
+        "counts": {
+          "co": 13,
+          "single": 11,
+          "none": 6,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      },
+      "50": {
+        "co_retrieval_rate": 0.3,
+        "single_rate": 0.23333333333333334,
+        "none_rate": 0.4666666666666667,
+        "counts": {
+          "co": 9,
+          "single": 7,
+          "none": 14,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      },
+      "200": {
+        "co_retrieval_rate": 0.2,
+        "single_rate": 0.3,
+        "none_rate": 0.5,
+        "counts": {
+          "co": 6,
+          "single": 9,
+          "none": 15,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      }
+    },
+    "Semantic": {
+      "0": {
+        "co_retrieval_rate": 0.8333333333333334,
+        "single_rate": 0.13333333333333333,
+        "none_rate": 0.03333333333333333,
+        "counts": {
+          "co": 25,
+          "single": 4,
+          "none": 1,
+          "total": 30
+        },
+        "avg_link_rate": 2.9166666666666674
+      },
+      "50": {
+        "co_retrieval_rate": 0.6333333333333333,
+        "single_rate": 0.26666666666666666,
+        "none_rate": 0.1,
+        "counts": {
+          "co": 19,
+          "single": 8,
+          "none": 3,
+          "total": 30
+        },
+        "avg_link_rate": 2.9508196721311473
+      },
+      "200": {
+        "co_retrieval_rate": 0.4,
+        "single_rate": 0.2,
+        "none_rate": 0.4,
+        "counts": {
+          "co": 12,
+          "single": 6,
+          "none": 12,
+          "total": 30
+        },
+        "avg_link_rate": 2.977941176470589
+      }
+    },
+    "Entity": {
+      "0": {
+        "co_retrieval_rate": 0.8333333333333334,
+        "single_rate": 0.1,
+        "none_rate": 0.06666666666666667,
+        "doc1_doc2_link_rate": 0.9,
+        "counts": {
+          "co": 25,
+          "single": 3,
+          "none": 2,
+          "doc1_doc2_linked": 27,
+          "total": 30
+        }
+      },
+      "50": {
+        "co_retrieval_rate": 0.6,
+        "single_rate": 0.16666666666666666,
+        "none_rate": 0.23333333333333334,
+        "doc1_doc2_link_rate": 0.8333333333333334,
+        "counts": {
+          "co": 18,
+          "single": 5,
+          "none": 7,
+          "doc1_doc2_linked": 25,
+          "total": 30
+        }
+      },
+      "200": {
+        "co_retrieval_rate": 0.5333333333333333,
+        "single_rate": 0.1,
+        "none_rate": 0.36666666666666664,
+        "doc1_doc2_link_rate": 0.7,
+        "counts": {
+          "co": 16,
+          "single": 3,
+          "none": 11,
+          "doc1_doc2_linked": 21,
+          "total": 30
+        }
+      }
+    },
+    "Hybrid-OR": {
+      "0": {
+        "co_retrieval_rate": 0.7333333333333333,
+        "single_rate": 0.16666666666666666,
+        "none_rate": 0.1,
+        "doc1_doc2_link_rate": 0.7666666666666667,
+        "counts": {
+          "co": 22,
+          "single": 5,
+          "none": 3,
+          "doc1_doc2_linked": 23,
+          "total": 30
+        }
+      },
+      "50": {
+        "co_retrieval_rate": 0.5666666666666667,
+        "single_rate": 0.2,
+        "none_rate": 0.23333333333333334,
+        "doc1_doc2_link_rate": 0.6333333333333333,
+        "counts": {
+          "co": 17,
+          "single": 6,
+          "none": 7,
+          "doc1_doc2_linked": 19,
+          "total": 30
+        }
+      },
+      "200": {
+        "co_retrieval_rate": 0.36666666666666664,
+        "single_rate": 0.26666666666666666,
+        "none_rate": 0.36666666666666664,
+        "doc1_doc2_link_rate": 0.5333333333333333,
+        "counts": {
+          "co": 11,
+          "single": 8,
+          "none": 11,
+          "doc1_doc2_linked": 16,
+          "total": 30
+        }
+      }
+    },
+    "Hybrid-AND": {
+      "0": {
+        "co_retrieval_rate": 0.7,
+        "single_rate": 0.13333333333333333,
+        "none_rate": 0.16666666666666666,
+        "doc1_doc2_link_rate": 0.9333333333333333,
+        "counts": {
+          "co": 21,
+          "single": 4,
+          "none": 5,
+          "doc1_doc2_linked": 28,
+          "total": 30
+        }
+      },
+      "50": {
+        "co_retrieval_rate": 0.6333333333333333,
+        "single_rate": 0.13333333333333333,
+        "none_rate": 0.23333333333333334,
+        "doc1_doc2_link_rate": 0.9,
+        "counts": {
+          "co": 19,
+          "single": 4,
+          "none": 7,
+          "doc1_doc2_linked": 27,
+          "total": 30
+        }
+      },
+      "200": {
+        "co_retrieval_rate": 0.36666666666666664,
+        "single_rate": 0.3,
+        "none_rate": 0.3333333333333333,
+        "doc1_doc2_link_rate": 0.7,
+        "counts": {
+          "co": 11,
+          "single": 9,
+          "none": 10,
+          "doc1_doc2_linked": 21,
+          "total": 30
+        }
+      }
+    }
+  }
+}

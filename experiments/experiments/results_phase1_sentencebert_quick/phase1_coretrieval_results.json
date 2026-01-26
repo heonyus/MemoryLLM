@@ -1,0 +1,42 @@
+{
+  "timestamp": "2026-01-22T09:22:48.623450",
+  "experiment": "Phase 1 - M+ Retriever Co-retrieval Analysis",
+  "config": {
+    "weights_path": "mplus_retriever_weights.pt",
+    "layer_idx": 16,
+    "top_k": 5,
+    "num_samples": 50,
+    "num_distractors": 500,
+    "seed": 42,
+    "use_sentence_bert": true
+  },
+  "results": {
+    "0": {
+      "coretrieval_rate": 0.9,
+      "single_rate": 0.1,
+      "none_rate": 0.0,
+      "coretrieval_count": 45,
+      "single_count": 5,
+      "none_count": 0,
+      "total": 50
+    },
+    "50": {
+      "coretrieval_rate": 0.84,
+      "single_rate": 0.16,
+      "none_rate": 0.0,
+      "coretrieval_count": 42,
+      "single_count": 8,
+      "none_count": 0,
+      "total": 50
+    },
+    "200": {
+      "coretrieval_rate": 0.72,
+      "single_rate": 0.28,
+      "none_rate": 0.0,
+      "coretrieval_count": 36,
+      "single_count": 14,
+      "none_count": 0,
+      "total": 50
+    }
+  }
+}

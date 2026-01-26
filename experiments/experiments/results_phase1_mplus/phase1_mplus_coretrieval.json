@@ -1,0 +1,34 @@
+{
+  "experiment": "Phase 1: M+ Retriever Co-retrieval Analysis",
+  "timestamp": "2026-01-22T11:33:59.784851",
+  "method": {
+    "description": "Token-level retrieval with M+ trained projectors",
+    "activation": "SiLU (matching Llama/M+ config)",
+    "similarity": "sigmoid(query_tokens @ key_tokens.T).mean()",
+    "base_model": "meta-llama/Llama-3.1-8B (4-bit)",
+    "retriever_weights": "YuWangX/mplus-8b"
+  },
+  "config": {
+    "num_samples": 30,
+    "num_distractors": 500,
+    "top_k": 5,
+    "layer_idx": 16,
+    "gap_sizes": [
+      0,
+      50,
+      200
+    ],
+    "seed": 42,
+    "quick_mode": true,
+    "detailed_logs": [
+      {
+        "gap": 0,
+        "sample_idx": 0,
+        "question": "Were Scott Derrickson and Ed Wood of the same nationality?",
+        "doc1_title": "Ed Wood",
+        "doc2_title": "Scott Derrickson",
+        "memory_size": 72,
+        "doc1_idx": 50,
+        "doc2_idx": 51,
+        "top_k_idx": [
+          

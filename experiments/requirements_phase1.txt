@@ -1,0 +1,10 @@
+# Phase 1 Requirements
+# GCP L4 GPU (24GB) 환경
+
+torch>=2.0.0
+transformers>=4.35.0
+datasets
+sentence-transformers
+numpy
+matplotlib
+tqdm

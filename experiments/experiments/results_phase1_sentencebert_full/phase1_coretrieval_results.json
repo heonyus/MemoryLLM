@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-01-22T09:25:33.513279",
+  "experiment": "Phase 1 - M+ Retriever Co-retrieval Analysis",
+  "config": {
+    "weights_path": "mplus_retriever_weights.pt",
+    "layer_idx": 16,
+    "top_k": 5,
+    "num_samples": 200,
+    "num_distractors": 2000,
+    "seed": 42,
+    "use_sentence_bert": true
+  },
+  "results": {
+    "0": {
+      "coretrieval_rate": 0.945,
+      "single_rate": 0.055,
+      "none_rate": 0.0,
+      "coretrieval_count": 189,
+      "single_count": 11,
+      "none_count": 0,
+      "total": 200
+    },
+    "10": {
+      "coretrieval_rate": 0.935,
+      "single_rate": 0.065,
+      "none_rate": 0.0,
+      "coretrieval_count": 187,
+      "single_count": 13,
+      "none_count": 0,
+      "total": 200
+    },
+    "50": {
+      "coretrieval_rate": 0.9,
+      "single_rate": 0.1,
+      "none_rate": 0.0,
+      "coretrieval_count": 180,
+      "single_count": 20,
+      "none_count": 0,
+      "total": 200
+    },
+    "100": {
+      "coretrieval_rate": 0.88,
+      "single_rate": 0.12,
+      "none_rate": 0.0,
+      "coretrieval_count": 176,
+      "single_count": 24,
+      "none_count": 0,
+      "total": 200
+    },
+    "200": {
+      "coretrieval_rate": 0.83,
+      "single_rate": 0.17,
+      "none_rate": 0.0,
+      "coretrieval_count": 166,
+      "single_count": 34,
+      "none_count": 0,
+      "total": 200
+    },
+    "500": {
+      "coretrieval_rate": 0.76,
+      "single_rate": 0.24,
+      "none_rate": 0.0,
+      "coretrieval_count": 152,
+      "single_count": 48,
+      "none_count": 0,
+      "total": 200
+    },
+    "1000": {
+      "coretrieval_rate": 0.64,
+      "single_rate": 0.355,
+      "none_rate": 0.005,
+      "coretrieval_count": 128,
+      "single_count": 71,
+      "none_count": 1,
+      "total": 200
+    }
+  }
+}

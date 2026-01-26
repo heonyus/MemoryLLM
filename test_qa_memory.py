@@ -11,6 +11,7 @@ from collections import OrderedDict
 import copy
 from transformers import LlamaTokenizer
 from modeling_memoryllm import MemoryLLM
+from modeling_mplus import MPlus
 from torch.utils.data import Dataset, DataLoader
 from dataset.nq import NQDataset
 from dataset.squad import SQuADDataset
@@ -94,20 +95,6 @@ def collate_fn_qa(data, tokenizer, max_length, num_tokens,
     return outputs
 
 
-
-# # Configure logging
-# logging.basicConfig(
-#     level=print,  # Set the desired log level (e.g., INFO, DEBUG, WARNING)
-#     filename='/fsx-Training/shopqa-training-fsx-prod-us-east-1/wangyuu/log_qa.txt',  # Specify the file to write the log output
-#     filemode='a',       # 'a' stands for "append", which appends log output to the file
-#     format='%(asctime)s - %(levelname)s - %(message)s'  # Define the log message format
-# )
-
-# # Test the logging
-# print('This is an informational message.')
-# logging.warning('This is a warning message.')
-
-
 def get_parser():
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -180,6 +167,28 @@ def load_data(filepath):
         lines = file.read().splitlines()
     data = [json.loads(line) for line in lines]
     return pd.DataFrame(data)
+
+
+def load_model(opt):
+    """M+ 또는 MemoryLLM 모델을 로딩"""
+    is_mplus = 'mplus' in opt.model.lower()
+    
+    if is_mplus:
+        print("Loading M+ model...")
+        if opt.split_model:
+            model = MPlus.from_pretrained(opt.model, device_map='auto', torch_dtype=torch.bfloat16)
+        else:
+            model = MPlus.from_pretrained(opt.model, torch_dtype=torch.bfloat16).cuda()
+    else:
+        print("Loading MemoryLLM model...")
+        if opt.split_model:
+            model = MemoryLLM.from_pretrained(opt.model, device_map='auto')
+        else:
+            model = MemoryLLM.from_pretrained(opt.model).cuda()
+        model = model.to(torch.float16)
+    
+    return model
+
 
 def run_qa(model, tokenizer, dataset, step=1):
 
@@ -350,9 +359,6 @@ if __name__ == "__main__":
     model = None
     tokenizer = None
 
-    if opt.put_memory_on_cpu:
-        model.convert_memory_to_cpu()
-
     original_nuc = opt.nuc
 
     for dataset in opt.datasets:
@@ -364,27 +370,24 @@ if __name__ == "__main__":
                 opt.nuc = nuc
 
                 print(f"Running {dataset} dataset with nuc {opt.nuc}")
-                # filename = f"./results/results_{dataset}_{os.path.basename(opt.model)}_nuc_{opt.nuc}{'_backup' if opt.backup_memory else ''}.json"
                 if not os.path.exists(f"results/{dataset}"):
                     os.mkdir(f"results/{dataset}")
                 if not os.path.exists(f"results/{dataset}/{os.path.basename(opt.model)}"):
                     os.mkdir(f"results/{dataset}/{os.path.basename(opt.model)}")
                 filename = f"results/{dataset}/{os.path.basename(opt.model)}/results_nuc_{opt.nuc}{'_backup' if opt.backup_memory else ''}_{opt.related_position}.json"
-                # filename = f"results/results_{dataset}_{os.path.basename(opt.model)}_nuc_{opt.nuc}{'_backup' if opt.backup_memory else ''}_{opt.related_position}.json"
 
                 if os.path.exists(filename):
                     generated_results = json.load(open(filename, 'r'))
                     
                 else:
                     if model is None:
-                        if not opt.split_model:
-                            model = MemoryLLM.from_pretrained(opt.model).cuda()
-                            
-                        else:
-                            model = MemoryLLM.from_pretrained(opt.model, device_map='auto')
+                        model = load_model(opt)
                     
                     if tokenizer is None:
                         tokenizer = LlamaTokenizer.from_pretrained(opt.model)
+
+                    if opt.put_memory_on_cpu:
+                        model.convert_memory_to_cpu()
 
                     middle_outputs, targets, contexts_middle, questions = run_qa(model, tokenizer, dataset, step=opt.nuc)
 
@@ -452,27 +455,18 @@ if __name__ == "__main__":
                 os.mkdir(f"results/{dataset}/{os.path.basename(opt.model)}")
             filename = f"results/{dataset}/{os.path.basename(opt.model)}/results_nuc_{opt.nuc}{'_backup' if opt.backup_memory else ''}_{opt.related_position}.json"
 
-            # filename = f"results/results_{dataset}_{os.path.basename(opt.model)}_nuc_{opt.nuc}{'_backup' if opt.backup_memory else ''}_{opt.related_position}.json"
-
             if os.path.exists(filename):
                 generated_results = json.load(open(filename, 'r'))
 
             else:
-                if opt.model is None:
-                    model = None
-                    tokenizer = None
-                    middle_outputs, targets, contexts_middle, questions = run_qa(model, tokenizer, dataset, step=opt.nuc)
-                    
                 if model is None:
-                    if not opt.split_model:
-                        model = MemoryLLM.from_pretrained(opt.model).cuda()
-                    else:
-                        model = MemoryLLM.from_pretrained(opt.model, device_map='auto')
-                
-                model = model.to(torch.float16)
+                    model = load_model(opt)
                 
                 if tokenizer is None:
                     tokenizer = LlamaTokenizer.from_pretrained(opt.model)
+
+                if opt.put_memory_on_cpu:
+                    model.convert_memory_to_cpu()
 
                 middle_outputs, targets, contexts_middle, questions = run_qa(model, tokenizer, dataset, step=opt.nuc)
 
@@ -526,4 +520,3 @@ if __name__ == "__main__":
                     acc = calculate_exact_hit_accuracy([x[f'prediction_step_{idx+1}'] for x in list(generated_results.values())[1:]],
                                                     [x['target'] for x in list(generated_results.values())[1:]])
                     print(f"Exact Hit Accuracy: {acc:.4f}")
-

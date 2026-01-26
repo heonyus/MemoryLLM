@@ -1,0 +1,47 @@
+[project]
+name = "mplus-hotpotqa-eval"
+version = "0.1.0"
+description = "M+ Model HotpotQA Multi-hop QA Evaluation"
+readme = "README.md"
+requires-python = ">=3.9,<3.12"
+dependencies = [
+    # Core ML
+    "torch==2.2.2",
+    "transformers==4.43.0",
+
+    # Dataset
+    "datasets==2.14.0",
+    "pyarrow==14.0.0",
+
+    # Utilities
+    "numpy<2",
+    "tqdm",
+    "accelerate",
+    "sentencepiece",
+    "protobuf",
+
+    # For LoRA (M+ model uses it)
+    "peft",
+    "bitsandbytes==0.43.0",
+
+    # Additional dependencies from modeling_mplus.py
+    "scipy",
+    "scikit-learn",
+    "pandas",
+    "omegaconf",
+    "nltk",
+    "langchain-community",
+]
+
+[project.optional-dependencies]
+dev = [
+    "jupyter",
+    "ipykernel",
+    "matplotlib",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "jupyter",
+    "ipykernel",
+]

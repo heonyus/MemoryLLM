@@ -1,0 +1,182 @@
+{
+  "experiment": "Phase 2 (B-3): Explicit Linking Effect (MPLUS)",
+  "timestamp": "2026-01-22T16:18:10.958351",
+  "method": {
+    "description": "Write-time Linking + Read-time Link Expansion",
+    "encoder": "YuWangX/mplus-8b (token-level, sigmoid(q·k).mean(), Base Llama hidden states)",
+    "retrieval": "token-level sigmoid",
+    "conditions": [
+      "Baseline",
+      "Link-1",
+      "Link-3",
+      "Link-5"
+    ]
+  },
+  "config": {
+    "encoder": "mplus",
+    "num_samples": 30,
+    "num_distractors": 500,
+    "top_k": 5,
+    "gap_sizes": [
+      0,
+      50,
+      200
+    ],
+    "seed": 42,
+    "quick_mode": true
+  },
+  "results": {
+    "Baseline": {
+      "0": {
+        "co_retrieval_rate": 0.43333333333333335,
+        "single_rate": 0.36666666666666664,
+        "none_rate": 0.2,
+        "counts": {
+          "co": 13,
+          "single": 11,
+          "none": 6,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      },
+      "50": {
+        "co_retrieval_rate": 0.3,
+        "single_rate": 0.23333333333333334,
+        "none_rate": 0.4666666666666667,
+        "counts": {
+          "co": 9,
+          "single": 7,
+          "none": 14,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      },
+      "200": {
+        "co_retrieval_rate": 0.2,
+        "single_rate": 0.3,
+        "none_rate": 0.5,
+        "counts": {
+          "co": 6,
+          "single": 9,
+          "none": 15,
+          "total": 30
+        },
+        "avg_link_rate": 0.0
+      }
+    },
+    "Link-1": {
+      "0": {
+        "co_retrieval_rate": 0.6333333333333333,
+        "single_rate": 0.2,
+        "none_rate": 0.16666666666666666,
+        "counts": {
+          "co": 19,
+          "single": 6,
+          "none": 5,
+          "total": 30
+        },
+        "avg_link_rate": 0.986111111111111
+      },
+      "50": {
+        "co_retrieval_rate": 0.43333333333333335,
+        "single_rate": 0.26666666666666666,
+        "none_rate": 0.3,
+        "counts": {
+          "co": 13,
+          "single": 8,
+          "none": 9,
+          "total": 30
+        },
+        "avg_link_rate": 0.9918032786885248
+      },
+      "200": {
+        "co_retrieval_rate": 0.3,
+        "single_rate": 0.3,
+        "none_rate": 0.4,
+        "counts": {
+          "co": 9,
+          "single": 9,
+          "none": 12,
+          "total": 30
+        },
+        "avg_link_rate": 0.9963235294117647
+      }
+    },
+    "Link-3": {
+      "0": {
+        "co_retrieval_rate": 0.8333333333333334,
+        "single_rate": 0.13333333333333333,
+        "none_rate": 0.03333333333333333,
+        "counts": {
+          "co": 25,
+          "single": 4,
+          "none": 1,
+          "total": 30
+        },
+        "avg_link_rate": 2.9166666666666674
+      },
+      "50": {
+        "co_retrieval_rate": 0.6333333333333333,
+        "single_rate": 0.26666666666666666,
+        "none_rate": 0.1,
+        "counts": {
+          "co": 19,
+          "single": 8,
+          "none": 3,
+          "total": 30
+        },
+        "avg_link_rate": 2.9508196721311473
+      },
+      "200": {
+        "co_retrieval_rate": 0.4,
+        "single_rate": 0.2,
+        "none_rate": 0.4,
+        "counts": {
+          "co": 12,
+          "single": 6,
+          "none": 12,
+          "total": 30
+        },
+        "avg_link_rate": 2.977941176470589
+      }
+    },
+    "Link-5": {
+      "0": {
+        "co_retrieval_rate": 0.7333333333333333,
+        "single_rate": 0.16666666666666666,
+        "none_rate": 0.1,
+        "counts": {
+          "co": 22,
+          "single": 5,
+          "none": 3,
+          "total": 30
+        },
+        "avg_link_rate": 4.791666666666666
+      },
+      "50": {
+        "co_retrieval_rate": 0.6333333333333333,
+        "single_rate": 0.2,
+        "none_rate": 0.16666666666666666,
+        "counts": {
+          "co": 19,
+          "single": 6,
+          "none": 5,
+          "total": 30
+        },
+        "avg_link_rate": 4.8770491803278695
+      },
+      "200": {
+        "co_retrieval_rate": 0.3333333333333333,
+        "single_rate": 0.36666666666666664,
+        "none_rate": 0.3,
+        "counts": {
+          "co": 10,
+          "single": 11,
+          "none": 9,
+          "total": 30
+        },
+        "avg_link_rate": 4.944852941176469
+      }
+    }
+  }
+}

@@ -886,7 +886,7 @@ class LlamaSdpaAttention(LlamaAttention):
 
         attn_output = self.o_proj(attn_output)
 
-        return attn_output, None, past_key_value
+        return attn_output, None, past_key_value, None, None
 
 
 LLAMA_ATTENTION_CLASSES = {
@@ -2579,10 +2579,10 @@ class MPlus(LlamaForCausalLM):
                     hidden_states = hidden_states[:, :length, :]
 
                 queries = self.model.layers[idx].self_attn.query_proj(self.model.layers[idx].input_layernorm(hidden_states[0]))
-                predictions = (queries @ self.ltm_keys[idx].to(queries.device).transpose(-2, -1)).sigmoid().mean(dim=0)
+                predictions = (queries @ self.ltm_keys[idx].to(queries.device).to(queries.dtype).transpose(-2, -1)).sigmoid().mean(dim=0)
 
                 if self.cached_dropped_memories is not None:
-                    cached_predictions = (queries @ self.cached_dropped_keys[idx].to(queries.device).transpose(-2, -1)).sigmoid().mean(dim=0)
+                    cached_predictions = (queries @ self.cached_dropped_keys[idx].to(queries.device).to(queries.dtype).transpose(-2, -1)).sigmoid().mean(dim=0)
                     predictions = torch.cat([predictions, cached_predictions], dim=0)
 
                 indices = torch.topk(predictions, k=num_ltm_tokens).indices
@@ -2602,7 +2602,11 @@ class MPlus(LlamaForCausalLM):
                 dropped_indices = indices[len(ltm_indices):] - self.ltm[idx].shape[0]
 
                 ltm_ages = self.ltm_ages[idx][ltm_indices.detach().cpu().numpy()]
-                dropped_ages = self.cached_dropped_memory_ages[idx][np.array(dropped_indices.detach().cpu())]
+                if isinstance(ltm_ages, torch.Tensor):
+                    ltm_ages = ltm_ages.float().cpu().numpy()
+                dropped_ages = self.cached_dropped_memory_ages[idx][dropped_indices.detach().cpu().numpy()]
+                if isinstance(dropped_ages, torch.Tensor):
+                    dropped_ages = dropped_ages.float().cpu().numpy()
 
                 ltm_x = self.ltm[idx][ltm_indices].to(hidden_states.device)
                 dropped_x = self.cached_dropped_memories[idx][dropped_indices].to(hidden_states.device)
